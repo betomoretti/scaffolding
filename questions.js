@@ -1,5 +1,5 @@
 module.exports = [{
-    type: 'input',
-    name: 'name',
-    message: 'What\'s model name?'
-  }];
+  'message': 'What\'s model name?',
+  'name': 'name',
+  'type': 'input'
+}];
