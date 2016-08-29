@@ -2,6 +2,7 @@ let fs = require('fs'),
   inquirer = require('inquirer'),
   Q = require('q'),
   questions = require('./questions'),
+  _ = require('lodash'),
   writeFile = Q.denodeify(fs.writeFile),
   mkdir = Q.denodeify(fs.mkdir),
   TemplateHelper = require('./TemplateHelper');
@@ -13,10 +14,11 @@ let promise = inquirer
 Q(promise)
   .spread((answers) =>
     Q.all([
-      writeFile(`${answers.name}/${answers.name}Controller.js`, TemplateHelper.controller(answers)),
-      writeFile(`${answers.name}/${answers.name}Service.js`, `${answers.name}/${answers.name}Service.js`),
-      writeFile(`${answers.name}/${answers.name}Validator.js`, `${answers.name}/${answers.name}Validator.js`),
-      writeFile(`${answers.name}/${answers.name}Model.js`, `${answers.name}/${answers.name}Model.js`),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Controller.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Service.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Validator.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/index.js`, TemplateHelper.controller(answers)),
       ])
   )
   .then((results) => console.log('oks'))
