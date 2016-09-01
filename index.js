@@ -15,7 +15,7 @@ Q(promise)
   .spread((answers) =>
     Q.all([
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Controller.js`, TemplateHelper.controller(answers)),
-      writeFile(`${answers.name}/${_.capitalize(answers.name)}Service.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Service.js`, TemplateHelper.service(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Validator.js`, TemplateHelper.controller(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.controller(answers)),
       writeFile(`${answers.name}/index.js`, TemplateHelper.controller(answers)),
