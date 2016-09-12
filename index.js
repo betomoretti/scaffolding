@@ -9,32 +9,34 @@ let fs = require('fs'),
   attributes = [];
 
 let ask = () => {
-  inquirer.prompt(questions.attributes).then((answers) => {
-    attributes.push(answers.attribute);
-    if (answers.askAgain) {
-      ask();
-    } else {
-      return attributes;
-    }
-  });
+  return inquirer.prompt(questions.attributes)
+    .then((answers) => {
+      attributes.push(answers.attribute);
+      if (answers.askAgain) {
+        ask();
+      } else {
+        return attributes;
+      }
+    });
 }
 
-let promise = inquirer
-  .prompt(questions.name)
-  .then((answers) => Q.all([answers.name, ask()]))
+let questionProm = inquirer.prompt(questions.name)
+  .then((answers) => [answers.name, ask()]);
+
+let mkdirProm = Q(questionProm)
   .spread((name, attributes) => Q.all([{'name': name, 'attr': attributes}, mkdir(name)]));
 
-Q(promise)
+Q(mkdirProm)
   .spread((answers) =>
     Q.all([
+      answers,
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Controller.js`, TemplateHelper.controller(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Service.js`, TemplateHelper.service(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Validator.js`, TemplateHelper.controller(answers)),
-      writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.model(answers)),
       writeFile(`${answers.name}/index.js`, TemplateHelper.controller(answers)),
     ])
 )
-  .then((results) => console.log('oks'))
+  .spread((answers) => console.log(answers))
   .catch(console.log);
-
 

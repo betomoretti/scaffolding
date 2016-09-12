@@ -10,7 +10,7 @@ module.exports =
     'message': 'Define attibutes for the model:\n' +
       'The format must be like attr:type, for example: name:string\n' +
       'You can find the different types in http://docs.sequelizejs.com/en/v3/api/datatypes/',
-    'name': 'tvShow',
+    'name': 'attribute',
     'type': 'input'
   }, {
     'default': true,

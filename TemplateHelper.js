@@ -22,7 +22,9 @@ module.exports = {
       '}';
   },
   index () {},
-  model () {},
+  model (answers) {
+    console.log(answers);
+  },
   service (options) {
     return 'module.exports =\n\n' +
       `class ${_.capitalize(options.name)}Service {\n` +
