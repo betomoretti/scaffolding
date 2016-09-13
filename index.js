@@ -13,7 +13,7 @@ let ask = () => {
     .then((answers) => {
       attributes.push(answers.attribute);
       if (answers.askAgain) {
-        ask();
+        return ask();
       } else {
         return attributes;
       }
