@@ -34,9 +34,9 @@ Q(mkdirProm)
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Service.js`, TemplateHelper.service(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Validator.js`, TemplateHelper.controller(answers)),
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.model(answers)),
-      writeFile(`${answers.name}/index.js`, TemplateHelper.controller(answers)),
+      writeFile(`${answers.name}/index.js`, TemplateHelper.index(answers)),
     ])
 )
-  .spread((answers) => console.log(answers))
+  .spread((answers) => answers)
   .catch(console.log);
 
