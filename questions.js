@@ -1,6 +1,11 @@
 module.exports =
 
 {
+  'all': [{
+    'message': 'Insert everything',
+    'name': 'all',
+    'type': 'input'
+  }],
   'name': [{
     'message': 'What\'s model name?',
     'name': 'name',

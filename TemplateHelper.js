@@ -2,7 +2,7 @@ let _ = require('lodash');
 
 const types = {
   'string': 'Sequelize.STRING',
-  'integer': 'Sequelize.INTEGER'
+  'number': 'Sequelize.INTEGER'
 };
 
 module.exports = {
@@ -96,5 +96,53 @@ module.exports = {
       '  }\n' +
       '}';
     },
-  validator () {}
+  validator (options) {
+    let template =
+      "let Joi = require('joi');\n" +
+      "module.exports = {\n\n" +
+      "  'get': {\n" +
+      "    'params': {\n" +
+      "      id: Joi.number().required()\n" +
+      "    }\n" +
+      "  },\n" +
+      "  'create': {\n" +
+      "    params: {\n" +
+      "      id: Joi.number().required()\n" +
+      "    },\n" +
+      "    body: {\n";
+    _.each(options.attr, (attr, index) => {
+      let valueProperty = attr.split(':');
+      if (index !== options.attr.length - 1) {
+        template += `      ${valueProperty[0]}: Joi.${valueProperty[1]}(),\n`;
+      } else {
+        template += `      ${valueProperty[0]}: Joi.${valueProperty[1]}()\n`;
+      }
+    });
+    template += '    },\n' +
+      '  },\n' +
+      "  'update': {\n" +
+      "    params: {\n" +
+      "      id: Joi.number().required()\n" +
+      "    },\n" +
+      "    body: {\n";
+    _.each(options.attr, (attr, index) => {
+      let valueProperty = attr.split(':');
+      if (index !== options.attr.length - 1) {
+        template += `      ${valueProperty[0]}: Joi.${valueProperty[1]}(),\n`;
+      } else {
+        template += `      ${valueProperty[0]}: Joi.${valueProperty[1]}()\n`;
+      }
+    });
+
+    template += '    },\n' +
+      '  },\n' +
+      "  'delete': {\n" +
+      "    params: {\n" +
+      "      id: Joi.number().required()\n" +
+      "    }\n" +
+      "  }\n" +
+      "};\n"
+
+    return template;
+  }
 };
