@@ -36,7 +36,7 @@ Q(mkdirProm)
       writeFile(`${answers.name}/${_.capitalize(answers.name)}Model.js`, TemplateHelper.model(answers)),
       writeFile(`${answers.name}/index.js`, TemplateHelper.index(answers)),
     ])
-)
+  )
   .spread((answers) => answers)
   .catch(console.log);
 
