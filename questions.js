@@ -19,7 +19,7 @@ module.exports =
     'type': 'input'
   }, {
     'default': true,
-    'message': 'Do you want to add another attribute? [Y/n]',
+    'message': 'Do you want to add another attribute?',
     'name': 'askAgain',
     'type': 'confirm'
   }]
