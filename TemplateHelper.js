@@ -26,6 +26,7 @@ module.exports = {
         '  }\n' +
       '}';
   },
+
   index (options) {
     let name = options.name,
       capitalizedName = _.capitalize(options.name);
@@ -48,11 +49,13 @@ module.exports = {
       `    'class': require('./${capitalizedName}Model')\n` +
       '  });\n'
   },
+
   model (options) {
     let template = 'let Sequelize = require(\'sequelize\');\n\n' +
       'module.exports = {\n\n' +
       `  modelName: '${_.capitalize(options.name)}',\n` +
       '  attributes: {\n';
+
     _.each(options.attr, (attribute, index) => {
       let valueProperty = attribute.split(':');
       if (index !== options.attr.length - 1) {
@@ -74,11 +77,12 @@ module.exports = {
 
     return template;
   },
+
   service (options) {
     let name = options.name;
 
     return 'module.exports =\n\n' +
-      `class ${_.capitalize(options.name)}Service {\n` +
+      `class ${_.capitalize(name)}Service {\n` +
       '  get (id) {\n' +
       '    return this.model.findById(id);\n' +
       '  }\n' +
@@ -96,6 +100,7 @@ module.exports = {
       '  }\n' +
       '}';
     },
+
   validator (options) {
     let template =
       "let Joi = require('joi');\n" +
@@ -110,6 +115,7 @@ module.exports = {
       "      id: Joi.number().required()\n" +
       "    },\n" +
       "    body: {\n";
+
     _.each(options.attr, (attr, index) => {
       let valueProperty = attr.split(':');
       if (index !== options.attr.length - 1) {
@@ -118,6 +124,7 @@ module.exports = {
         template += `      ${valueProperty[0]}: Joi.${valueProperty[1]}()\n`;
       }
     });
+
     template += '    },\n' +
       '  },\n' +
       "  'update': {\n" +
@@ -125,6 +132,7 @@ module.exports = {
       "      id: Joi.number().required()\n" +
       "    },\n" +
       "    body: {\n";
+
     _.each(options.attr, (attr, index) => {
       let valueProperty = attr.split(':');
       if (index !== options.attr.length - 1) {

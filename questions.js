@@ -7,7 +7,7 @@ module.exports =
     'type': 'input'
   }],
   'name': [{
-    'message': 'What\'s model name?',
+    'message': 'Enter a name for this model:',
     'name': 'name',
     'type': 'input'
   }],
@@ -19,7 +19,7 @@ module.exports =
     'type': 'input'
   }, {
     'default': true,
-    'message': 'Want to enter another attribute (just hit enter for YES)?',
+    'message': 'Do you want to add another attribute? [Y/n]',
     'name': 'askAgain',
     'type': 'confirm'
   }]
